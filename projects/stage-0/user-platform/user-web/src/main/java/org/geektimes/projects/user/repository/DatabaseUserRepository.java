@@ -8,7 +8,9 @@ import java.beans.BeanInfo;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Method;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.logging.Level;
@@ -30,6 +32,7 @@ public class DatabaseUserRepository implements UserRepository {
                     "(?,?,?,?)";
 
     public static final String QUERY_ALL_USERS_DML_SQL = "SELECT id,name,password,email,phoneNumber FROM users";
+    public static final String CREATE_USER_SQL = "insert into users(email,password) values(?,?)";
 
     private final DBConnectionManager dbConnectionManager;
 
@@ -43,7 +46,7 @@ public class DatabaseUserRepository implements UserRepository {
 
     @Override
     public boolean save(User user) {
-        return false;
+        return executeUpdate(INSERT_USER_DML_SQL, user.getName(), user.getPassword(), user.getEmail(), user.getPhoneNumber()) > 0;
     }
 
     @Override
@@ -101,6 +104,37 @@ public class DatabaseUserRepository implements UserRepository {
         });
     }
 
+
+
+
+    protected int executeUpdate(String sql, Object... args) {
+        Connection connection = getConnection();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            for (int i = 0; i < args.length; i++) {
+                Object arg = args[i];
+                Class argType = arg.getClass();
+
+                Class wrapperType = wrapperToPrimitive(argType);
+
+                if (wrapperType == null) {
+                    wrapperType = argType;
+                }
+
+                // Boolean -> boolean
+                String methodName = preparedStatementMethodMappings.get(argType);
+                Method method = PreparedStatement.class.getMethod(methodName, int.class, wrapperType);
+                method.invoke(preparedStatement, i + 1, arg);
+            }
+            preparedStatement.execute();
+            return preparedStatement.executeUpdate();
+
+        } catch (Throwable e) {
+            logger.info("操作db失败" + e.getMessage());
+            return 0;
+        }
+    }
+
     /**
      * @param sql
      * @param function
@@ -124,8 +158,8 @@ public class DatabaseUserRepository implements UserRepository {
 
                 // Boolean -> boolean
                 String methodName = preparedStatementMethodMappings.get(argType);
-                Method method = PreparedStatement.class.getMethod(methodName, wrapperType);
-                method.invoke(preparedStatement, i + 1, args);
+                Method method = PreparedStatement.class.getMethod(methodName, int.class, wrapperType);
+                method.invoke(preparedStatement, i + 1, arg);
             }
             ResultSet resultSet = preparedStatement.executeQuery();
             // 返回一个 POJO List -> ResultSet -> POJO List
