@@ -6,7 +6,7 @@
 <body>
 	<div class="container-lg">
 		<!-- Content here -->
-		Hello,World 2021
+
 		<br>
 		<H1>你好:<font color="red">${name}</font></H1>
 		<br>
