@@ -1,6 +1,7 @@
-package org.geektimes.projects.user.repository;
+package org.geektimes.projects.user.repository.impl;
 
 import org.geektimes.projects.user.domain.User;
+import org.geektimes.projects.user.repository.UserRepository;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -48,5 +49,10 @@ public class InMemoryUserRepository implements UserRepository {
     @Override
     public Collection<User> getAll() {
         return repository.values();
+    }
+
+    @Override
+    public void createTable() {
+
     }
 }

@@ -40,5 +40,10 @@ public class UserServiceImpl implements UserService {
         return null;
     }
 
+    @Override
+    public void createTable() {
+        userRepository.createTable();
+    }
+
 
 }

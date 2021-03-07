@@ -39,10 +39,6 @@
             <artifactId>derby</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-        </dependency>
     </dependencies>
 
     <build>
@@ -63,6 +59,7 @@
                         <configuration>
                             <!-- ServletContext 路径 -->
                             <path>/</path>
+                            <enableNaming>true</enableNaming>
                         </configuration>
                     </execution>
                 </executions>

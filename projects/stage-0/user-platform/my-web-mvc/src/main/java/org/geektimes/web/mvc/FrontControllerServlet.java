@@ -1,6 +1,9 @@
 package org.geektimes.web.mvc;
 
+import com.google.common.collect.Lists;
+import com.sun.jndi.toolkit.ctx.ComponentContext;
 import org.apache.commons.lang.StringUtils;
+import org.geektimes.web.mvc.context.ControllerContext;
 import org.geektimes.web.mvc.controller.Controller;
 import org.geektimes.web.mvc.controller.PageController;
 import org.geektimes.web.mvc.controller.RestController;
@@ -29,15 +32,15 @@ import static org.apache.commons.lang.StringUtils.substringAfter;
 
 public class FrontControllerServlet extends HttpServlet {
 
-    /**
+    /* *//**
      * 请求路径和 Controller 的映射关系缓存
-     */
-    private Map<String, Controller> controllersMapping = new HashMap<>();
+     *//*
+    private static  Map<String, Controller> controllersMapping = new HashMap<>();
 
-    /**
+    *//**
      * 请求路径和 {@link HandlerMethodInfo} 映射关系缓存
-     */
-    private Map<String, HandlerMethodInfo> handleMethodInfoMapping = new HashMap<>();
+     *//*
+    private Map<String, HandlerMethodInfo> handleMethodInfoMapping = new HashMap<>();*/
 
     /**
      * 初始化 Servlet
@@ -45,14 +48,15 @@ public class FrontControllerServlet extends HttpServlet {
      * @param servletConfig
      */
     public void init(ServletConfig servletConfig) {
-        initHandleMethods();
+        // initHandleMethods();
     }
+
 
     /**
      * 读取所有的 RestController 的注解元信息 @Path
      * 利用 ServiceLoader 技术（Java SPI）
      */
-    private void initHandleMethods() {
+   /* private void initHandleMethods() {
         for (Controller controller : ServiceLoader.load(Controller.class)) {
             Class<?> controllerClass = controller.getClass();
             Path pathFromClass = controllerClass.getAnnotation(Path.class);
@@ -72,12 +76,12 @@ public class FrontControllerServlet extends HttpServlet {
         }
     }
 
-    /**
+    *//**
      * 获取处理方法中标注的 HTTP方法集合
      *
      * @param method 处理方法
      * @return
-     */
+     *//*
     private Set<String> findSupportedHttpMethods(Method method) {
         Set<String> supportedHttpMethods = new LinkedHashSet<>();
         for (Annotation annotationFromMethod : method.getAnnotations()) {
@@ -93,7 +97,7 @@ public class FrontControllerServlet extends HttpServlet {
         }
 
         return supportedHttpMethods;
-    }
+    }*/
 
     /**
      * SCWCD
@@ -116,11 +120,11 @@ public class FrontControllerServlet extends HttpServlet {
         String requestMappingPath = substringAfter(requestURI,
                 StringUtils.replace(prefixPath, "//", "/"));
         // 映射到 Controller
-        Controller controller = controllersMapping.get(requestMappingPath);
+        Controller controller = ControllerContext.findMatchController(requestMappingPath);
 
         if (controller != null) {
 
-            HandlerMethodInfo handlerMethodInfo = handleMethodInfoMapping.get(requestMappingPath);
+            HandlerMethodInfo handlerMethodInfo = ControllerContext.findMatchMethod(requestMappingPath);
 
             try {
                 if (handlerMethodInfo != null) {

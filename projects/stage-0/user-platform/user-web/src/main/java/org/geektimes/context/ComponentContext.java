@@ -3,18 +3,25 @@ package org.geektimes.context;
 import com.google.common.collect.Lists;
 import org.geektimes.function.ThrowableAction;
 import org.geektimes.function.ThrowableFunction;
+import org.geektimes.web.mvc.FrontControllerServlet;
+import org.geektimes.web.mvc.HandlerMethodInfo;
+import org.geektimes.web.mvc.context.ControllerContext;
+import org.geektimes.web.mvc.controller.Controller;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.naming.*;
 import javax.servlet.ServletContext;
+import javax.ws.rs.HttpMethod;
+import javax.ws.rs.Path;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.util.Collections;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.logging.Logger;
 import java.util.stream.Stream;
+
+import static java.util.Arrays.asList;
 
 /**
  * @author jixiaoliang
@@ -38,11 +45,14 @@ public class ComponentContext {
     private static final String COMPONENT_ENV_CONTEXT_NAME = "java:comp/env";
 
 
+
+
     public void init(ServletContext servletContext) {
         ComponentContext.servletContext = servletContext;
         servletContext.setAttribute(COMPONENT_CONTEXT, this);
         // 获取当前 ServletContext（WebApp）ClassLoader
         this.classLoader = servletContext.getClassLoader();
+        ControllerContext.initController();
         initEnvContext();
         instantiateComponents();
         initializeComponents();
@@ -83,7 +93,7 @@ public class ComponentContext {
         Stream.of(componentClass.getDeclaredMethods())
                 .filter(method -> {
                     int mod = method.getModifiers();
-                    return Modifier.isStatic(mod) &&
+                    return !Modifier.isStatic(mod) &&
                             method.getParameterCount() == 0 &&
                             method.isAnnotationPresent(PostConstruct.class);
                 }).forEach(method -> {
@@ -100,7 +110,7 @@ public class ComponentContext {
         Stream.of(componentClass.getDeclaredFields())
                 .filter(field -> {
                     int mod = field.getModifiers();
-                    return Modifier.isStatic(mod) && field.isAnnotationPresent(Resource.class);
+                    return !Modifier.isStatic(mod) && field.isAnnotationPresent(Resource.class);
                 }).forEach(field -> {
             Resource resource = field.getAnnotation(Resource.class);
             String beanName = resource.name();
@@ -116,7 +126,10 @@ public class ComponentContext {
 
     private void instantiateComponents() {
         List<String> list = listAllCommentNames();
-        list.forEach(name -> componentsMap.put(name, lookupComponentByName(name)));
+        list.forEach(name -> {
+            componentsMap.put(name, lookupComponentByName(name));
+        });
+        ControllerContext.getAllController().forEach(controller -> componentsMap.put(controller.getClass().getName(),controller));
     }
 
     private List<String> listAllCommentNames() {
@@ -172,7 +185,7 @@ public class ComponentContext {
             if (ignoreException) {
                 logger.warning(e.getMessage());
             } else {
-                throw new RuntimeException(e.getMessage());
+                throw new RuntimeException(e);
             }
         }
         return result;

@@ -29,6 +29,7 @@ public class UserController implements PageController {
             put("register", new ModelAndView<>(user -> userService.register(user), "index.jsp"));
             put("registerPage", new ModelAndView<>(user->{}, "register-form.jsp"));
             put("loginPage", new ModelAndView<>(user->{}, "login-form.jsp"));
+            put("createTable", new ModelAndView<>(user->userService.createTable(),"index.jsp"));
         }
     };
 

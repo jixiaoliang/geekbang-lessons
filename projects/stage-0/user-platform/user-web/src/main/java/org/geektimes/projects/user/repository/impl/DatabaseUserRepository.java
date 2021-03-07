@@ -1,9 +1,11 @@
-package org.geektimes.projects.user.repository;
+package org.geektimes.projects.user.repository.impl;
 
 import org.geektimes.function.ThrowableFunction;
 import org.geektimes.projects.user.domain.User;
+import org.geektimes.projects.user.repository.UserRepository;
 import org.geektimes.projects.user.sql.DBConnectionManager;
 
+import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import java.beans.BeanInfo;
 import java.beans.Introspector;
@@ -34,13 +36,21 @@ public class DatabaseUserRepository implements UserRepository {
 
     public static final String QUERY_ALL_USERS_DML_SQL = "SELECT id,name,password,email,phoneNumber FROM users";
     public static final String CREATE_USER_SQL = "insert into users(email,password) values(?,?)";
+    public static final String CREATE_USER_TABLE_SQL = "CREATE TABLE users(\n" +
+            "id INT NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),\n" +
+            "name VARCHAR(16) NOT NULL,\n" +
+            "password VARCHAR(64) NOT NULL,\n" +
+            "email VARCHAR(64) NOT NULL,\n" +
+            "phoneNumber VARCHAR(32) NOT NULL)";
 
     @Resource(name = "bean/DBConnectionManager")
-    private final DBConnectionManager dbConnectionManager;
+    private  DBConnectionManager dbConnectionManager;
 
-    public DatabaseUserRepository(DBConnectionManager dbConnectionManager) {
-        this.dbConnectionManager = dbConnectionManager;
+
+    public void createTable(){
+        executeUpdate(CREATE_USER_TABLE_SQL);
     }
+
 
     private Connection getConnection() {
         return dbConnectionManager.getConnection();
