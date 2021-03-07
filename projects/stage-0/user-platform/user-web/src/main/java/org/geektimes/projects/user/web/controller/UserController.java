@@ -6,6 +6,7 @@ import org.geektimes.projects.user.service.UserService;
 import org.geektimes.projects.user.service.impl.UserServiceImpl;
 import org.geektimes.web.mvc.controller.PageController;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.GET;
@@ -19,7 +20,9 @@ import java.util.Objects;
  */
 @Path("/user")
 public class UserController implements PageController {
-    private  UserService userService = new UserServiceImpl();
+
+    @Resource(name ="bean/UserService")
+    private  UserService userService;
 
     private  Map<String, ModelAndView<User>> rstMapping = new HashMap<String, ModelAndView<User>>(){
         {

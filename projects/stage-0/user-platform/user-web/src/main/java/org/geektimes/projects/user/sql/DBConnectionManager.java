@@ -2,6 +2,8 @@ package org.geektimes.projects.user.sql;
 
 import org.geektimes.projects.user.domain.User;
 
+import javax.annotation.Resource;
+import javax.sql.DataSource;
 import java.beans.BeanInfo;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
@@ -14,25 +16,27 @@ import java.util.Properties;
 
 public class DBConnectionManager {
 
-    private Connection connection;
+    @Resource(name = "jdbc/UserPlatformDB")
+    private DataSource dataSource;
 
-    public void setConnection(Connection connection) {
-        this.connection = connection;
-    }
 
     public Connection getConnection() {
-        return DBConnectionManager.createNewConnection();
-        //return connection;
+        try {
+            return dataSource.getConnection();
+        } catch (SQLException e) {
+            throw  new RuntimeException(e);
+        }
     }
 
     public void releaseConnection() {
-        if (this.connection != null) {
+        if (getConnection() != null) {
             try {
-                this.connection.close();
+                getConnection().close();
             } catch (SQLException e) {
                 throw new RuntimeException(e.getCause());
             }
         }
+
     }
 
     public static final String DROP_USERS_TABLE_DDL_SQL = "DROP TABLE users";

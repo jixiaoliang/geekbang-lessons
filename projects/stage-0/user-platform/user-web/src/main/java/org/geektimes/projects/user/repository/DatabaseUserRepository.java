@@ -4,6 +4,7 @@ import org.geektimes.function.ThrowableFunction;
 import org.geektimes.projects.user.domain.User;
 import org.geektimes.projects.user.sql.DBConnectionManager;
 
+import javax.annotation.Resource;
 import java.beans.BeanInfo;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
@@ -34,6 +35,7 @@ public class DatabaseUserRepository implements UserRepository {
     public static final String QUERY_ALL_USERS_DML_SQL = "SELECT id,name,password,email,phoneNumber FROM users";
     public static final String CREATE_USER_SQL = "insert into users(email,password) values(?,?)";
 
+    @Resource(name = "bean/DBConnectionManager")
     private final DBConnectionManager dbConnectionManager;
 
     public DatabaseUserRepository(DBConnectionManager dbConnectionManager) {

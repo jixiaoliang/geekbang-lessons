@@ -1,10 +1,10 @@
 package org.geektimes.projects.user.service.impl;
 
 import org.geektimes.projects.user.domain.User;
-import org.geektimes.projects.user.repository.DatabaseUserRepository;
 import org.geektimes.projects.user.repository.UserRepository;
 import org.geektimes.projects.user.service.UserService;
-import org.geektimes.projects.user.sql.DBConnectionManager;
+
+import javax.annotation.Resource;
 
 /**
  * @author jixiaoliang
@@ -12,7 +12,8 @@ import org.geektimes.projects.user.sql.DBConnectionManager;
  **/
 public class UserServiceImpl implements UserService {
 
-    private final UserRepository userRepository = new DatabaseUserRepository(new DBConnectionManager());
+    @Resource(name = "bean/UserRepository")
+    private UserRepository userRepository;
 
     @Override
     public boolean register(User user) {
@@ -38,4 +39,6 @@ public class UserServiceImpl implements UserService {
     public User queryUserByNameAndPassword(String name, String password) {
         return null;
     }
+
+
 }
