@@ -25,6 +25,10 @@
 			<label for="inputEmail" class="sr-only">请输出电子邮件</label>
 
 			<input
+					type="text" name="id" id="id" class="form-control"
+					placeholder="请输入id" required autofocus>
+
+			<input
 					type="text" name="name" id="inputName" class="form-control"
 					placeholder="请输入姓名" required autofocus>
 

@@ -25,7 +25,10 @@
         <javax.ws.rs-api.version>2.0.1</javax.ws.rs-api.version>
         <jstl.version>1.2</jstl.version>
         <commons-lang.version>2.6</commons-lang.version>
+        <commons-validator.version>1.7</commons-validator.version>
         <derby.version>10.1.3.1</derby.version>
+        <hibernate.version>5.4.29.Final</hibernate.version>
+        <hibernate.validator.version>5.4.3.Final</hibernate.validator.version>
 
         <!-- Maven Plugins 版本 -->
         <maven.compiler.version>3.8.1</maven.compiler.version>
@@ -38,8 +41,6 @@
         <maven.compiler.target>8</maven.compiler.target>
         <guava.version>20.0</guava.version>
 
-        <hibernate.version>5.4.29.Final</hibernate.version>
-        <hibernate.validator.version>6.1.7.Final</hibernate.validator.version>
     </properties>
 
     <!-- Artifacts 依赖版本管理 -->
@@ -74,15 +75,15 @@
             </dependency>
 
             <dependency>
-                <groupId>org.apache.derby</groupId>
-                <artifactId>derby</artifactId>
-                <version>${derby.version}</version>
+                <groupId>commons-validator</groupId>
+                <artifactId>commons-validator</artifactId>
+                <version>${commons-validator.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>com.google.guava</groupId>
-                <artifactId>guava</artifactId>
-                <version>${guava.version}</version>
+                <groupId>org.apache.derby</groupId>
+                <artifactId>derby</artifactId>
+                <version>${derby.version}</version>
             </dependency>
 
             <!-- Hibernate ORM Core -->
@@ -101,9 +102,15 @@
 
             <!-- Hibernate Validator -->
             <dependency>
-                <groupId>org.hibernate.validator</groupId>
+                <groupId>org.hibernate</groupId>
                 <artifactId>hibernate-validator</artifactId>
                 <version>${hibernate.validator.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava.version}</version>
             </dependency>
 
         </dependencies>

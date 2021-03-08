@@ -32,7 +32,7 @@ public class UserServiceImpl implements UserService {
     public boolean register(User user) {
         Set<ConstraintViolation<User>> violations = validator.validate(user);
         violations.forEach(rst->{
-            throw new RuntimeException(rst.getMessage());
+            throw new RuntimeException(String.format("%s:%s", rst.getPropertyPath(), rst.getMessage()));
         });
         entityManager.persist(user);
         //return userRepository.save(user);

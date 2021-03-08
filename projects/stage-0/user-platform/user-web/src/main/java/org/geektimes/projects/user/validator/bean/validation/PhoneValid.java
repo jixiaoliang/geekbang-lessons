@@ -7,14 +7,14 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Target(ElementType.TYPE)
+@Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy = UserValidAnnotationValidator.class)
-public @interface UserValid {
+@Constraint(validatedBy = PhoneValidAnnotationValidator.class)
+public @interface PhoneValid {
 
-    String message() default "{javax.validation.constraints.UserValid.message}";
+    String message() default "{javax.validation.constraints.PhoneValid.message}";
 
-    int idRange() default 0;
+    String phone() default "";
 
     Class<?>[] groups() default { };
 
