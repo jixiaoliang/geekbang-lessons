@@ -27,14 +27,15 @@ public class UserServiceImpl implements UserService {
     private Validator validator;
 
 
-    @Transactional(rollbackOn = Exception.class)
     @Override
     public boolean register(User user) {
         Set<ConstraintViolation<User>> violations = validator.validate(user);
         violations.forEach(rst->{
             throw new RuntimeException(String.format("%s:%s", rst.getPropertyPath(), rst.getMessage()));
         });
+        entityManager.getTransaction().begin();
         entityManager.persist(user);
+        entityManager.getTransaction().commit();
         //return userRepository.save(user);
         return true;
     }
