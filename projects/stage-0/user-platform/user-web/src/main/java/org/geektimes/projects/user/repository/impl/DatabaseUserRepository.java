@@ -138,7 +138,6 @@ public class DatabaseUserRepository implements UserRepository {
                 Method method = PreparedStatement.class.getMethod(methodName, int.class, wrapperType);
                 method.invoke(preparedStatement, i + 1, arg);
             }
-            preparedStatement.execute();
             return preparedStatement.executeUpdate();
 
         } catch (Throwable e) {

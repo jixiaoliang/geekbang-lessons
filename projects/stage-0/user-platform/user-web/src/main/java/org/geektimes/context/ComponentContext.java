@@ -140,7 +140,7 @@ public class ComponentContext {
         return executeInContext(context -> (T) context.lookup(name));
     }
 
-    private <T> T getComponentByName(String name) {
+    public  <T> T getComponentByName(String name) {
         return executeInContext(context -> (T) componentsMap.get(name));
     }
 

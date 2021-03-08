@@ -1,22 +1,42 @@
 package org.geektimes.projects.user.domain;
 
+import org.geektimes.projects.user.validator.bean.validation.UserValid;
+
+import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.util.Objects;
+
+import static javax.persistence.GenerationType.AUTO;
 
 /**
  * 用户领域对象
  *
  * @since 1.0
  */
+@Entity
+@Table(name = "users")
+@UserValid
 public class User {
 
+    @Id
+    @GeneratedValue(strategy = AUTO)
+    @NotNull
     private Long id;
 
+    @Column
     private String name;
 
+    @Column
+    @Max(32)
+    @Min(6)
     private String password;
 
+    @Column
     private String email;
 
+    @Column
     private String phoneNumber;
 
     public Long getId() {

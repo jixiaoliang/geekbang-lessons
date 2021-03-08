@@ -5,6 +5,11 @@ import org.geektimes.projects.user.repository.UserRepository;
 import org.geektimes.projects.user.service.UserService;
 
 import javax.annotation.Resource;
+import javax.persistence.EntityManager;
+import javax.transaction.Transactional;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validator;
+import java.util.Set;
 
 /**
  * @author jixiaoliang
@@ -15,9 +20,23 @@ public class UserServiceImpl implements UserService {
     @Resource(name = "bean/UserRepository")
     private UserRepository userRepository;
 
+    @Resource(name = "bean/EntityManager")
+    private EntityManager entityManager;
+
+    @Resource(name = "bean/Validator")
+    private Validator validator;
+
+
+    @Transactional(rollbackOn = Exception.class)
     @Override
     public boolean register(User user) {
-        return userRepository.save(user);
+        Set<ConstraintViolation<User>> violations = validator.validate(user);
+        violations.forEach(rst->{
+            throw new RuntimeException(rst.getMessage());
+        });
+        entityManager.persist(user);
+        //return userRepository.save(user);
+        return true;
     }
 
     @Override
@@ -32,7 +51,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User queryUserById(Long id) {
-        return null;
+        return userRepository.getById(id);
     }
 
     @Override
