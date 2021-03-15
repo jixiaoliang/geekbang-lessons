@@ -1,0 +1,2 @@
+http://127.0.0.1:8080/jolokia/exec/org.geektimes.jmx.MyMonitor:type=serverTime/loadServerTime
+http://127.0.0.1:8080/jolokia/read/org.geektimes.jmx.MyMonitor:type=serverTime/Prefix
