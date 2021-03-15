@@ -35,4 +35,9 @@ public class MyMonitor implements MyMonitorMBean{
     public void setPrefix(String prefix) {
         this.prefix = prefix;
     }
+
+    @Override
+    public String getPrefix() {
+        return prefix;
+    }
 }

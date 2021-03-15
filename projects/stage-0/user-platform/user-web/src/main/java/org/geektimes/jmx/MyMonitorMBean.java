@@ -8,4 +8,6 @@ public interface MyMonitorMBean {
     String loadServerTime();
 
     void setPrefix(String prefix);
+
+    String getPrefix();
 }
