@@ -41,4 +41,8 @@
 			  type="org.geektimes.projects.user.repository.impl.DatabaseUserRepository"
 			  factory="org.apache.naming.factory.BeanFactory" />
 
+	<Resource name="bean/MyMonitor" auth="Container"
+			  type="org.geektimes.jmx.MyMonitor"
+			  factory="org.apache.naming.factory.BeanFactory"/>
+
 </Context>

@@ -23,6 +23,17 @@
         <load-on-startup>1</load-on-startup>
     </servlet>
 
+    <servlet>
+        <servlet-name>AgentServlet</servlet-name>
+        <servlet-class>org.jolokia.http.AgentServlet</servlet-class>
+    </servlet>
+
+    <!-- The mapping for the default servlet -->
+    <servlet-mapping>
+        <servlet-name>AgentServlet</servlet-name>
+        <url-pattern>/jolokia/*</url-pattern>
+    </servlet-mapping>
+
     <!-- The mapping for the default servlet -->
     <servlet-mapping>
         <servlet-name>default</servlet-name>
