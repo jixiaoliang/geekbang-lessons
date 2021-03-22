@@ -1,6 +1,7 @@
 package org.geektimes.configuration.microprofile.config.source;
 
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.Map;
 import java.util.Properties;
@@ -29,7 +30,7 @@ public class DefaultPropertiesConfigSource extends MapBasedConfigSource {
             logger.warning("The default config file can't be found in the classpath :" + configFileLocation);
             return;
         }
-        try(InputStream inputStream = url.openStream()){
+        try(InputStreamReader inputStream = new InputStreamReader(url.openStream())){
             properties.load(inputStream);
             map.putAll(properties);
         }

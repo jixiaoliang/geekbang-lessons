@@ -1,5 +1,8 @@
 package org.geektimes.configuration.microprofile.config.source.servlet;
 
+import org.geektimes.configuration.microprofile.config.source.listener.ComponentContextInitializerListener;
+import org.geektimes.configuration.microprofile.config.source.listener.ServletContextConfigInitializer;
+
 import javax.servlet.ServletContainerInitializer;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -17,5 +20,6 @@ public class ServletConfigInitializer implements ServletContainerInitializer {
     public void onStartup(Set<Class<?>> classSet, ServletContext servletContext) throws ServletException {
         logger.info("onStartup classSet:"+classSet);
         servletContext.addListener(ServletContextConfigInitializer.class);
+        servletContext.addListener(ComponentContextInitializerListener.class);
     }
 }

@@ -24,11 +24,11 @@ public class DefaultConfigProviderResolver extends ConfigProviderResolver {
 
     @Override
     public Config getConfig(ClassLoader loader) {
-        return configMap.computeIfAbsent(loader, x -> newConfigBuilder(loader).build());
+        return configMap.computeIfAbsent(resolverClassLoader(loader), x -> newConfigBuilder(loader).build());
     }
 
     private ClassLoader resolverClassLoader(ClassLoader classLoader){
-        return classLoader==null?Thread.currentThread().getContextClassLoader():classLoader;
+        return classLoader == null ? Thread.currentThread().getContextClassLoader() : classLoader;
     }
 
     private ConfigBuilder newConfigBuilder(ClassLoader classLoader){

@@ -20,6 +20,8 @@
 </head>
 <body>
 	<div class="container">
+		<H1>当前应用名:<font color="red">${applicationName}</font></H1>
+
 		<form class="form-signin" action="/user/account?methodName=register" method="post">
 			<h1 class="h3 mb-3 font-weight-normal">注册</h1>
 			<label for="inputEmail" class="sr-only">请输出电子邮件</label>

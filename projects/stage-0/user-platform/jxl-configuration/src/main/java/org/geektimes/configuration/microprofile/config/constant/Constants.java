@@ -1,6 +1,6 @@
 package org.geektimes.configuration.microprofile.config.constant;
 
-import org.geektimes.configuration.microprofile.config.source.servlet.ServletContextConfigInitializer;
+import org.geektimes.configuration.microprofile.config.source.listener.ServletContextConfigInitializer;
 
 /**
  * @author jixiaoliang

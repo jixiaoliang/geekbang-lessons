@@ -20,9 +20,6 @@ import java.util.stream.StreamSupport;
  **/
 public class DefaultConfig implements Config {
 
-    private final List<ConfigSource> configSourceList = Lists.newArrayList();
-
-
     private final ConfigSources configSources;
 
     private final Converters converters ;
@@ -84,7 +81,7 @@ public class DefaultConfig implements Config {
 
     @Override
     public Iterable<ConfigSource> getConfigSources() {
-        return Collections.unmodifiableList(configSourceList);
+       return Collections.unmodifiableList(Lists.newArrayList(configSources));
     }
 
     @Override

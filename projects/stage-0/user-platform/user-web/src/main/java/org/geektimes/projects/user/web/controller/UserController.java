@@ -1,6 +1,8 @@
 package org.geektimes.projects.user.web.controller;
 
 import org.apache.commons.lang.StringUtils;
+import org.eclipse.microprofile.config.Config;
+import org.geektimes.configuration.microprofile.config.constant.Constants;
 import org.geektimes.projects.user.domain.ModelAndView;
 import org.geektimes.projects.user.domain.User;
 import org.geektimes.projects.user.service.UserService;
@@ -48,6 +50,9 @@ public class UserController implements PageController {
         }
         User user = parseUser(request);
         request.getSession().setAttribute("name", user.getName());
+        Config config = (Config) request.getServletContext().getAttribute(Constants.GLOBAL_CONFIG);
+        request.getSession().setAttribute("applicationName", config.getValue("application.name", String.class));
+
         modelAndView.getAction().accept(user);
         return modelAndView.getView();
     }

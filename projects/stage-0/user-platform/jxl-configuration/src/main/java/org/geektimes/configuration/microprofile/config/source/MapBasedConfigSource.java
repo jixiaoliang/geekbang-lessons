@@ -13,7 +13,7 @@ import java.util.Set;
  **/
 public abstract class MapBasedConfigSource implements ConfigSource {
 
-    private static Map<String, String> map;
+    private Map<String, String> map;
 
     /**
      * 数据源名称
