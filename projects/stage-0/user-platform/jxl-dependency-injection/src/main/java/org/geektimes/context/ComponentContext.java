@@ -3,25 +3,19 @@ package org.geektimes.context;
 import com.google.common.collect.Lists;
 import org.geektimes.function.ThrowableAction;
 import org.geektimes.function.ThrowableFunction;
-import org.geektimes.web.mvc.FrontControllerServlet;
-import org.geektimes.web.mvc.HandlerMethodInfo;
 import org.geektimes.web.mvc.context.ControllerContext;
-import org.geektimes.web.mvc.controller.Controller;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.naming.*;
 import javax.servlet.ServletContext;
-import javax.ws.rs.HttpMethod;
-import javax.ws.rs.Path;
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.util.*;
+import java.util.Collections;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 import java.util.stream.Stream;
-
-import static java.util.Arrays.asList;
 
 /**
  * @author jixiaoliang
@@ -43,8 +37,6 @@ public class ComponentContext {
 
 
     private static final String COMPONENT_ENV_CONTEXT_NAME = "java:comp/env";
-
-
 
 
     public void init(ServletContext servletContext) {
@@ -129,7 +121,7 @@ public class ComponentContext {
         list.forEach(name -> {
             componentsMap.put(name, lookupComponentByName(name));
         });
-        ControllerContext.getAllController().forEach(controller -> componentsMap.put(controller.getClass().getName(),controller));
+        ControllerContext.getAllController().forEach(controller -> componentsMap.put(controller.getClass().getName(), controller));
     }
 
     private List<String> listAllCommentNames() {
@@ -140,7 +132,7 @@ public class ComponentContext {
         return executeInContext(context -> (T) context.lookup(name));
     }
 
-    public  <T> T getComponentByName(String name) {
+    public <T> T getComponentByName(String name) {
         return executeInContext(context -> (T) componentsMap.get(name));
     }
 

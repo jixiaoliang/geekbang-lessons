@@ -14,6 +14,7 @@
         <module>my-web-mvc</module>
         <module>user-web</module>
         <module>jxl-configuration</module>
+        <module>jxl-dependency-injection</module>
     </modules>
 
     <properties>
@@ -49,6 +50,24 @@
     <dependencyManagement>
 
         <dependencies>
+            <dependency>
+                <groupId>org.geekbang.projects</groupId>
+                <artifactId>jxl-configuration</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.geekbang.projects</groupId>
+                <artifactId>my-web-mvc</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.geekbang.projects</groupId>
+                <artifactId>jxl-dependency-injection</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
             <!-- Servlet 3.1 API -->
             <dependency>
                 <groupId>javax.servlet</groupId>
