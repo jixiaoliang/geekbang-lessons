@@ -5,7 +5,10 @@ import org.eclipse.microprofile.config.spi.ConfigBuilder;
 import org.eclipse.microprofile.config.spi.ConfigProviderResolver;
 import org.geektimes.configuration.microprofile.config.DefaultConfigBuilder;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -47,7 +50,12 @@ public class DefaultConfigProviderResolver extends ConfigProviderResolver {
 
     @Override
     public void releaseConfig(Config config) {
-        configMap.keySet().forEach(configMap::remove);
-        // 用clear 有啥不同
+        List<ClassLoader> targetKeys = new LinkedList<>();
+        for (Map.Entry<ClassLoader, Config> entry : configMap.entrySet()) {
+            if (Objects.equals(config, entry.getValue())) {
+                targetKeys.add(entry.getKey());
+            }
+        }
+        targetKeys.forEach(configMap::remove);
     }
 }
