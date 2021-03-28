@@ -17,7 +17,6 @@ public class DecoratingSubscriber<T> implements Subscriber<T> {
 
     private final Logger logger;
 
-
     private boolean canceled = false;
 
     private boolean completed = false;

@@ -10,10 +10,7 @@ import javax.annotation.Resource;
 import javax.naming.*;
 import javax.servlet.ServletContext;
 import java.lang.reflect.Modifier;
-import java.util.Collections;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.logging.Logger;
 import java.util.stream.Stream;
 
@@ -128,7 +125,7 @@ public class ComponentContext {
         return listCommentNames("/");
     }
 
-    private <T> T lookupComponentByName(String name) {
+    public  <T> T lookupComponentByName(String name) {
         return executeInContext(context -> (T) context.lookup(name));
     }
 
@@ -197,4 +194,12 @@ public class ComponentContext {
         close(envContext);
     }
 
+    /**
+     * 获取所有的组件名称
+     *
+     * @return
+     */
+    public List<String> getComponentNames() {
+        return new ArrayList<>(componentsMap.keySet());
+    }
 }

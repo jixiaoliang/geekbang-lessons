@@ -6,12 +6,12 @@
 
     <groupId>org.geekbang.projects</groupId>
     <artifactId>user-platform</artifactId>
-    <name>User Platform ${revision}</name>
+    <name>jxl-user-platform ${revision}</name>
     <version>${revision}</version>
     <packaging>pom</packaging>
 
     <modules>
-        <module>my-web-mvc</module>
+        <module>jxl-web-mvc</module>
         <module>user-web</module>
         <module>jxl-configuration</module>
         <module>jxl-dependency-injection</module>
@@ -96,6 +96,12 @@
             <dependency>
                 <groupId>org.geekbang.projects</groupId>
                 <artifactId>jxl-rest-client</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.geekbang.projects</groupId>
+                <artifactId>jxl-reactive-messaging</artifactId>
                 <version>${revision}</version>
             </dependency>
 

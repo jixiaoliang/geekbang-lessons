@@ -4,6 +4,7 @@ import org.geektimes.projects.user.domain.User;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
+import javax.persistence.EntityManager;
 import javax.sql.DataSource;
 import java.beans.BeanInfo;
 import java.beans.Introspector;
@@ -17,6 +18,9 @@ public class DBConnectionManager {
 
     @Resource(name = "jdbc/UserPlatformDB")
     private DataSource dataSource;
+
+    @Resource(name = "bean/EntityManager")
+    private EntityManager entityManager;
 
     @PostConstruct
     private void initTable(){
@@ -170,5 +174,13 @@ public class DBConnectionManager {
     static {
         typeMethodMappings.put(Long.class, "getLong");
         typeMethodMappings.put(String.class, "getString");
+    }
+
+    public EntityManager getEntityManager() {
+        return entityManager;
+    }
+
+    public void setEntityManager(EntityManager entityManager) {
+        this.entityManager = entityManager;
     }
 }

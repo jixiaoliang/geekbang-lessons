@@ -16,10 +16,8 @@
 
 
     <dependencies>
-        <dependency>
-            <groupId>org.eclipse.microprofile.config</groupId>
-            <artifactId>microprofile-config-api</artifactId>
-        </dependency>
+
+
 
         <!-- Servlet API -->
         <dependency>
