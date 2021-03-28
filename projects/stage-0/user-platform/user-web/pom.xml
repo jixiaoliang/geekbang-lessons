@@ -18,7 +18,7 @@
     <dependencies>
         <dependency>
             <groupId>org.geekbang.projects</groupId>
-            <artifactId>my-web-mvc</artifactId>
+            <artifactId>jxl-web-mvc</artifactId>
         </dependency>
 
         <dependency>

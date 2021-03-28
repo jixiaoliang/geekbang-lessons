@@ -16,6 +16,7 @@
         <module>jxl-configuration</module>
         <module>jxl-dependency-injection</module>
         <module>jxl-rest-client</module>
+        <module>jxl-reactive-messaging</module>
     </modules>
 
     <properties>
@@ -28,9 +29,9 @@
         <javax.ws.rs-api.version>2.0.1</javax.ws.rs-api.version>
         <javax.annotation-api.version>1.3.2</javax.annotation-api.version>
         <javax.inject.version>1</javax.inject.version>
+        <javax.cdi-api.version>2.0</javax.cdi-api.version>
 
         <jstl.version>1.2</jstl.version>
-
 
 
         <!-- 第三方开源依赖版本-->
@@ -82,7 +83,7 @@
 
             <dependency>
                 <groupId>org.geekbang.projects</groupId>
-                <artifactId>my-web-mvc</artifactId>
+                <artifactId>jxl-web-mvc</artifactId>
                 <version>${revision}</version>
             </dependency>
 
@@ -183,6 +184,13 @@
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
                 <version>${guava.version}</version>
+            </dependency>
+
+            <!-- Java CDI API -->
+            <dependency>
+                <groupId>javax.enterprise</groupId>
+                <artifactId>cdi-api</artifactId>
+                <version>${javax.cdi-api.version}</version>
             </dependency>
 
             <!-- MicroProfile -->
