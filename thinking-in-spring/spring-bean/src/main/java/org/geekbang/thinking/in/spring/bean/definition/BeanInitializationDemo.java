@@ -55,4 +55,6 @@ public class BeanInitializationDemo {
     public UserFactory userFactory() {
         return new DefaultUserFactory();
     }
+
+
 }

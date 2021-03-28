@@ -22,8 +22,6 @@ import org.springframework.core.io.Resource;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
@@ -34,7 +32,7 @@ import java.util.Properties;
  * @author <a href="mailto:mercyblitz@gmail.com">Mercy</a>
  * @since
  */
-public class User implements BeanNameAware {
+public class User implements BeanNameAware,Comparable<User> {
 
     private Long id;
 
@@ -167,5 +165,10 @@ public class User implements BeanNameAware {
                 ", contextAsText='" + contextAsText + '\'' +
                 ", beanName='" + beanName + '\'' +
                 '}';
+    }
+
+    @Override
+    public int compareTo(User o) {
+        return Long.compare( this.getId(),o.getId());
     }
 }
