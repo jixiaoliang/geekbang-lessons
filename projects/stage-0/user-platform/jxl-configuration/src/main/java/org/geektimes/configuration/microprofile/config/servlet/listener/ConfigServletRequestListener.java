@@ -7,13 +7,18 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletRequestEvent;
 import javax.servlet.ServletRequestListener;
+import java.util.logging.Logger;
 
 public class ConfigServletRequestListener implements ServletRequestListener {
+
+    private Logger logger = Logger.getLogger(ConfigServletRequestListener.class.getName());
 
     private static final ThreadLocal<Config> configThreadLocal = new ThreadLocal<>();
 
     @Override
     public void requestInitialized(ServletRequestEvent sre) {
+        logger.info("ServletContextConfigInitializer 执行初始化");
+
         ServletRequest request = sre.getServletRequest();
         ServletContext servletContext = request.getServletContext();
         ClassLoader classLoader = servletContext.getClassLoader();

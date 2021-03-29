@@ -17,9 +17,12 @@ import java.util.logging.Logger;
  * @since 2021/03/21
  **/
 public class ServletContextConfigInitializer implements ServletContextListener {
+    private Logger logger = Logger.getLogger(ServletContextConfigInitializer.class.getName());
 
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {
+        logger.info("ServletContextConfigInitializer 执行初始化");
+
         ServletContext servletContext = servletContextEvent.getServletContext();
         ClassLoader classLoader = servletContext.getClassLoader();
         ConfigProviderResolver configProviderResolver= ConfigProviderResolver.instance();

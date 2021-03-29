@@ -23,6 +23,7 @@ public class TestingListener implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
+        logger.info("TestingListener 初始化");
         ComponentContext context = ComponentContext.getInstance();
         DBConnectionManager dbConnectionManager = context.getComponentByName("bean/DBConnectionManager");
         dbConnectionManager.getConnection();

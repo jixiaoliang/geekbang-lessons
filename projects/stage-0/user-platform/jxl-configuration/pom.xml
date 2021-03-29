@@ -37,6 +37,12 @@
             <groupId>org.geekbang.projects</groupId>
             <artifactId>jxl-dependency-injection</artifactId>
         </dependency>
+
+        <!-- ActiveMQ -->
+        <dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-all</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

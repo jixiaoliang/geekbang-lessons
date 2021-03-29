@@ -16,15 +16,12 @@
 
 
     <dependencies>
-        <dependency>
-            <groupId>org.geekbang.projects</groupId>
-            <artifactId>jxl-web-mvc</artifactId>
-        </dependency>
 
         <dependency>
             <groupId>org.geekbang.projects</groupId>
-            <artifactId>jxl-dependency-injection</artifactId>
+            <artifactId>jxl-configuration</artifactId>
         </dependency>
+
 
         <!-- Servlet API -->
         <dependency>
@@ -94,11 +91,6 @@
         <dependency>
             <groupId>org.jolokia</groupId>
             <artifactId>jolokia-core</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.geekbang.projects</groupId>
-            <artifactId>jxl-configuration</artifactId>
         </dependency>
 
 
