@@ -15,11 +15,11 @@ import java.util.logging.Logger;
  **/
 public class BaseInfoListener implements ServletContextListener {
 
-    private Logger logger = Logger.getLogger(this.getClass().getName());
+    private Logger logger = Logger.getLogger(BaseInfoListener.class.getName());
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-        logger.info("TestingListener 初始化");
+        logger.info("BaseInfoListener 执行初始化");
         ComponentContext context = ComponentContext.getInstance();
 
         testPropertyFromServletContext(sce.getServletContext());
