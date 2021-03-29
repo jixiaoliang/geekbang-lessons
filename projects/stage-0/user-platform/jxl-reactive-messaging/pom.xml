@@ -12,7 +12,7 @@
 
     <artifactId>jxl-reactive-messaging</artifactId>
     <name>jxl-reactive-messaging ${revision}</name>
-
+    <packaging>jar</packaging>
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>

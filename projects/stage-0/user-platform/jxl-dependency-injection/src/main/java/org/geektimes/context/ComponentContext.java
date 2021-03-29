@@ -6,12 +6,15 @@ import org.geektimes.function.ThrowableFunction;
 import org.geektimes.web.mvc.context.ControllerContext;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.annotation.Resource;
 import javax.naming.*;
 import javax.servlet.ServletContext;
+import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.*;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -32,6 +35,11 @@ public class ComponentContext {
 
     private final Map<String, Object> componentsMap = new LinkedHashMap<>();
 
+    /**
+     * @PreDestroy 方法缓存，Key 为标注方法，Value 为方法所属对象
+     */
+    private Map<Method, Object> preDestroyMethodCache = new LinkedHashMap<>();
+
 
     private static final String COMPONENT_ENV_CONTEXT_NAME = "java:comp/env";
 
@@ -45,6 +53,11 @@ public class ComponentContext {
         initEnvContext();
         instantiateComponents();
         initializeComponents();
+        registerShutdownHook();
+    }
+
+    private void registerShutdownHook() {
+        Runtime.getRuntime().addShutdownHook(new Thread(this::processPreDestroy));
     }
 
     private void initEnvContext() {
@@ -67,15 +80,45 @@ public class ComponentContext {
         componentsMap.forEach((name, component) -> {
             Class<?> componentClass = component.getClass();
             injectComponents(component, componentClass);
+
+            List<Method> candidateMethods = findCandidateMethods(componentClass);
+
             // 初始阶段 - {@link PostConstruct}
             processPostConstruct(component, componentClass);
-            // TODO 实现销毁阶段 - {@link PreDestroy}
-            processPreDestroy();
+
+
+            processPreDestroyMetaData(candidateMethods,component);
         });
     }
 
+
+    /**
+     * 于存储待销毁方法&对象
+     * @param candidateMethods PreDestroy 方法
+     * @param component 所属对象
+     */
+    private void processPreDestroyMetaData(List<Method> candidateMethods, Object component) {
+        candidateMethods
+                .stream()
+                .filter(x->x.isAnnotationPresent(PreDestroy.class))
+                .forEach(method-> preDestroyMethodCache.put(method,component));
+    }
+
+    private List<Method> findCandidateMethods(Class<?> componentClass) {
+        return Stream.of(componentClass.getMethods())
+                .filter(method -> !Modifier.isStatic(method.getModifiers()) &&
+                        method.getParameterCount()==0).collect(Collectors.toList());
+    }
+
+
     private void processPreDestroy() {
-        //TODO
+        for (Method method :preDestroyMethodCache.keySet()) {
+            // 移除集合中的对象，防止重复执行 @PreDestroy 方法
+            Object component= preDestroyMethodCache.remove(method);
+
+            //执行目标预处理方法
+            ThrowableAction.execute(() -> method.invoke(component));
+        }
     }
 
     private void processPostConstruct(Object component, Class<?> componentClass) {

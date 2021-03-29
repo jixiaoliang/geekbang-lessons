@@ -1,5 +1,6 @@
 package org.geektimes.configuration.microprofile.config.source.servlet;
 
+import org.geektimes.configuration.microprofile.config.servlet.listener.BaseInfoListener;
 import org.geektimes.configuration.microprofile.config.servlet.listener.ConfigServletRequestListener;
 import org.geektimes.configuration.microprofile.config.source.listener.ComponentContextInitializerListener;
 import org.geektimes.configuration.microprofile.config.source.listener.ServletContextConfigInitializer;
@@ -23,5 +24,6 @@ public class ServletConfigInitializer implements ServletContainerInitializer {
         servletContext.addListener(ServletContextConfigInitializer.class);
         servletContext.addListener(ComponentContextInitializerListener.class);
         servletContext.addListener(ConfigServletRequestListener.class);
+        servletContext.addListener(BaseInfoListener.class);
     }
 }

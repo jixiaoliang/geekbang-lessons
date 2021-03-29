@@ -27,6 +27,11 @@
         </dependency>
 
         <dependency>
+            <groupId>org.geekbang.projects</groupId>
+            <artifactId>jxl-reactive-messaging</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>org.eclipse.microprofile.config</groupId>
             <artifactId>microprofile-config-api</artifactId>
         </dependency>
