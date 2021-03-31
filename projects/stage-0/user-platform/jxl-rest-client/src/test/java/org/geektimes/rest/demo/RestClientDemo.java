@@ -19,9 +19,12 @@ public class RestClientDemo {
         Client client = ClientBuilder.newClient();
 
         Form form = new Form();
-        form.param("name","san.zhang");
+        form.param("name","太极张三丰");
+        form.param("phoneNumber","15802221002");
+        form.param("email","xx@qq.com");
+        form.param("password","123456");
         Response response = client
-                .target("http://www.baidu.com")      // WebTarget
+                .target("http://localhost:8080/user/account?methodName=register")      // WebTarget
                 .request() // Invocation.Builder
                 .post(Entity.form(form));                                     //  Response
 

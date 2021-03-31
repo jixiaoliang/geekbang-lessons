@@ -28,6 +28,7 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
+    @Transactional
     public boolean register(User user) {
         Set<ConstraintViolation<User>> violations = validator.validate(user);
         violations.forEach(rst->{
