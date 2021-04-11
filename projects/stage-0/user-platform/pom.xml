@@ -17,6 +17,8 @@
         <module>jxl-dependency-injection</module>
         <module>jxl-rest-client</module>
         <module>jxl-reactive-messaging</module>
+        <module>jxl-cache</module>
+        <module>jxl-serialization</module>
     </modules>
 
     <properties>
@@ -30,8 +32,8 @@
         <javax.annotation-api.version>1.3.2</javax.annotation-api.version>
         <javax.inject.version>1</javax.inject.version>
         <javax.cdi-api.version>2.0</javax.cdi-api.version>
-
         <jstl.version>1.2</jstl.version>
+        <javax.cache-api.version>1.1.1</javax.cache-api.version>
 
 
         <!-- 第三方开源依赖版本-->
@@ -51,8 +53,12 @@
 
         <tomcat7.version>7.0.37</tomcat7.version>
 
+        <lettuce.version>6.1.0.RELEASE</lettuce.version>
+        <jedis.version>3.5.2</jedis.version>
+
         <!-- Testing 版本 -->
         <junit.version>4.13</junit.version>
+
 
 
         <!-- micro profile 版本-->
@@ -104,6 +110,17 @@
             <dependency>
                 <groupId>org.geekbang.projects</groupId>
                 <artifactId>jxl-reactive-messaging</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.geekbang.projects</groupId>
+                <artifactId>jxl-cache</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.geekbang.projects</groupId>
+                <artifactId>jxl-serialization</artifactId>
                 <version>${revision}</version>
             </dependency>
 
@@ -201,6 +218,13 @@
                 <version>${javax.cdi-api.version}</version>
             </dependency>
 
+            <!-- Java Cache API -->
+            <dependency>
+                <groupId>javax.cache</groupId>
+                <artifactId>cache-api</artifactId>
+                <version>${javax.cache-api.version}</version>
+            </dependency>
+
             <!-- MicroProfile -->
             <dependency>
                 <groupId>org.eclipse.microprofile.config</groupId>
@@ -274,6 +298,19 @@
                 <groupId>org.apache.tomcat</groupId>
                 <artifactId>tomcat-jdbc</artifactId>
                 <version>${tomcat7.version}</version>
+            </dependency>
+
+            <!-- Redis Java Client - Lettuce -->
+            <dependency>
+                <groupId>io.lettuce</groupId>
+                <artifactId>lettuce-core</artifactId>
+                <version>${lettuce.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>redis.clients</groupId>
+                <artifactId>jedis</artifactId>
+                <version>${jedis.version}</version>
             </dependency>
 
 
