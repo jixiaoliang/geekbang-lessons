@@ -32,7 +32,7 @@ public class BaseInfoListener implements ServletContextListener {
         testJms(connectionFactory);
 
 
-
+        logger.info("jms 测试完成");
         //ConfigProviderResolver.instance();
     }
 

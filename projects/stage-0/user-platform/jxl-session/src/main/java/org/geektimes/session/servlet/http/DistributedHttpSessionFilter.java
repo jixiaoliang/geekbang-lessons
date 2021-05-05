@@ -20,6 +20,7 @@ import org.eclipse.microprofile.config.Config;
 import org.eclipse.microprofile.config.spi.ConfigBuilder;
 import org.eclipse.microprofile.config.spi.ConfigProviderResolver;
 import org.geektimes.configuration.microprofile.config.source.servlet.FilterConfigSource;
+import org.geektimes.configuration.microprofile.config.util.DelegatingPropertiesAdapter;
 
 import javax.cache.CacheManager;
 import javax.cache.Caching;
