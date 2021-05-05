@@ -51,7 +51,7 @@ public class UserController implements PageController {
         User user = parseUser(request);
         request.getSession().setAttribute("name", user.getName());
         Config config = (Config) request.getServletContext().getAttribute(Constants.GLOBAL_CONFIG);
-        request.getSession().setAttribute("applicationName", config.getValue("application.name", String.class));
+        request.getSession().setAttribute("applicationName", config.getValue(Constants.APPLICATION_NAME, String.class));
 
         modelAndView.getAction().accept(user);
         return modelAndView.getView();

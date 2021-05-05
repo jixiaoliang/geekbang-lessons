@@ -25,8 +25,13 @@ public class ComponentContextInitializerListener implements ServletContextListen
         //放进servlet 上下文
         Config config = (Config) servletContext.getAttribute(Constants.GLOBAL_CONFIG);
 
-        String appNameKey = "application.name";
-        String  appName = config.getValue(appNameKey, String.class);
+        String  appName = config.getValue(Constants.APPLICATION_NAME, String.class);
+        String  clientId = config.getValue(Constants.GITEE_AUTH_CLIENTID, String.class);
+        String  clientSecret = config.getValue(Constants.GITEE_AUTH_CLIENTSECRET, String.class);
+        String  redirectUri = config.getValue(Constants.GITEE_AUTH_REDIRECT_URI, String.class);
+        servletContextEvent.getServletContext().setAttribute("clientId", clientId);
+        servletContextEvent.getServletContext().setAttribute("clientSecret", clientSecret);
+        servletContextEvent.getServletContext().setAttribute("redirectUri", redirectUri);
         logger.info("应用: ["+appName +"] 初始化完成");
     }
 

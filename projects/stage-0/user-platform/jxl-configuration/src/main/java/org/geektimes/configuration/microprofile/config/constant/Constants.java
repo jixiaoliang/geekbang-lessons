@@ -12,4 +12,24 @@ public interface Constants {
      * @see ServletContextConfigInitializer
      */
     String GLOBAL_CONFIG ="globalConfig";
+
+    /**
+     * clientId
+     */
+    String GITEE_AUTH_CLIENTID ="gitee.auth.clientId";
+
+    /**
+     * clientSecret
+     */
+    String GITEE_AUTH_CLIENTSECRET ="gitee.auth.clientSecret";
+
+    /**
+     * REDIRECT_URI
+     */
+    String GITEE_AUTH_REDIRECT_URI ="gitee.auth.redirect.uri";
+
+    /**
+     * applicationName
+     */
+    String APPLICATION_NAME ="application.name";
 }

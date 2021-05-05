@@ -12,5 +12,7 @@
 		<H1>当前应用名:<font color="red">${applicationName}</font></H1>
 		<br>
 		<a href="/user/account?methodName=registerPage">前去注册</a>
+		<a href="https://gitee.com/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code
+">第三方登录</a>
 	</div>
 </body>
