@@ -22,6 +22,7 @@ import javax.ws.rs.HttpMethod;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.Invocation;
 import javax.ws.rs.client.InvocationCallback;
+import javax.ws.rs.core.Form;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
@@ -120,8 +121,20 @@ class HttpPostInvocation implements Invocation {
     private void sendData(HttpURLConnection connection){
         connection.setDoOutput(true);
         connection.setDoInput(true);
-        try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(connection.getOutputStream()))) {
-            writer.write(entity.getEntity().toString());
+        try (OutputStream os = connection.getOutputStream()) {
+            StringBuilder stringBuilder = new StringBuilder();
+           if(entity.getEntity() instanceof Form){
+               ((Form)entity.getEntity()).asMap().forEach((k,v)->{
+                   stringBuilder.append(k).append("=").append(v.get(0)).append("&");
+               });
+               if(stringBuilder.length()>0){
+                   stringBuilder.deleteCharAt(stringBuilder.length()-1);
+               }
+               os.write(stringBuilder.toString().getBytes());
+           }else{
+               os.write(entity.getEntity().toString().getBytes());
+           }
+
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -40,6 +40,7 @@ public class HttpSessionFilter  implements Filter {
         String sessionId = httpServletRequest.getSession().getId();
 
         Map<String, Object> attributesMap = cache.get(sessionId);
+        chain.doFilter(request, response);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package org.geektimes.serializer.jackson;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Strings;
 import org.geektimes.serializer.Serializer;
@@ -15,6 +16,10 @@ public class JacksonSerializer<V> implements Serializer<V> {
 
 
     public static ObjectMapper jsonMapper = new ObjectMapper();
+
+    static {
+        jsonMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+    }
 
 
     public static String of(Object o) {

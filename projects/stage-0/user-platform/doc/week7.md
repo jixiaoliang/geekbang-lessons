@@ -1,15 +1,5 @@
-#序列化API
-##org.geektimes.serializer.Serializer
+#AUTH登录
 
-#序列化实现
+访问: http://localhost:8080/
 
-
-* org.geektimes.serializer.jackson.JacksonSerializer
-* org.geektimes.serializer.java.JavaSerializer
-
-#LettuceCache实现
-
-## 测试入口
-```
-org.geektimes.cache.CachingTest.testLettuceUser
-```
+点击第三方登录 授权后可登录到首页限制gitee 用户名

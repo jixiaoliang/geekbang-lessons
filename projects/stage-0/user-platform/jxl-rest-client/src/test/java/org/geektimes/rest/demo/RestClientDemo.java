@@ -10,8 +10,8 @@ import javax.ws.rs.client.Entity;
 public class RestClientDemo {
 
     public static void main(String[] args) {
-      //  doGet();
-        doPost();
+       doGet();
+        //doPost();
 
     }
 
