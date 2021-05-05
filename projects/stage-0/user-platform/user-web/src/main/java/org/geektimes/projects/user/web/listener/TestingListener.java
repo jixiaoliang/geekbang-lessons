@@ -55,7 +55,7 @@ public class TestingListener implements ServletContextListener {
     }
 
     private void testUser(EntityManager entityManager) {
-        User user = new User();
+        /*User user = new User();
         user.setName("小马哥");
         user.setPassword("******");
         user.setEmail("mercyblitz@gmail.com");
@@ -63,7 +63,7 @@ public class TestingListener implements ServletContextListener {
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
         entityManager.persist(user);
-        transaction.commit();
+        transaction.commit();*/
     }
 
     private void testJms(ConnectionFactory connectionFactory) {
