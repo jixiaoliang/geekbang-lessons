@@ -1,3 +1,7 @@
+#依赖服务
+## 启动redis
+## 启动activeMq
+
 #AUTH登录
 
 访问: http://localhost:8080/
