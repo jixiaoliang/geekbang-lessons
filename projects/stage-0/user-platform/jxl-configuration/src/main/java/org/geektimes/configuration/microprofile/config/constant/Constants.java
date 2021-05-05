@@ -26,7 +26,7 @@ public interface Constants {
     /**
      * REDIRECT_URI
      */
-    String GITEE_AUTH_REDIRECT_URI ="gitee.auth.redirect.uri";
+    String GITEE_AUTH_REDIRECT_URI ="gitee.auth.redirectUri";
 
     /**
      * applicationName

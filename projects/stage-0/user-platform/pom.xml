@@ -20,6 +20,7 @@
         <module>jxl-cache</module>
         <module>jxl-serialization</module>
         <module>jxl-user-data</module>
+        <module>jxl-session</module>
     </modules>
 
     <properties>
@@ -96,6 +97,12 @@
                 <version>${spring-boot.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+                <exclusions>
+                    <exclusion>
+                        <groupId>io.lettuce</groupId>
+                        <artifactId>lettuce-core</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
 
             <dependency>
