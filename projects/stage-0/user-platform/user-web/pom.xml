@@ -25,6 +25,10 @@
             <groupId>org.geekbang.projects</groupId>
             <artifactId>jxl-rest-client</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.geekbang.projects</groupId>
+            <artifactId>jxl-session</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>org.geekbang.projects</groupId>
