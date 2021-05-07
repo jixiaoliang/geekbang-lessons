@@ -21,7 +21,21 @@
     </properties>
 
     <dependencies>
-        
+
+        <!-- MicroProfile Config Implementation -->
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>jxl-configuration</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <!-- Java Cache Implementation -->
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>jxl-cache</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
         <dependency>
             <groupId>io.lettuce</groupId>
             <artifactId>lettuce-core</artifactId>
