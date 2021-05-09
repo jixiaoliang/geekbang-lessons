@@ -43,12 +43,9 @@ public class DelegatingPropertiesAdapter extends Properties {
     private Properties buildDelegate(Config config) {
         Properties properties = new Properties();
 
-        for (ConfigSource configSource:config.getConfigSources()) {
-            for (String propertyName : configSource.getPropertyNames()) {
-                properties.put(propertyName, configSource.getValue(propertyName));
-            }
+        for (String propertyName : config.getPropertyNames()) {
+            properties.put(propertyName, config.getValue(propertyName, Object.class));
         }
-
         return properties;
     }
 
