@@ -65,7 +65,10 @@ public class DistributedHttpSessionFilter implements Filter {
         configBuilder.addDiscoveredSources();
         configBuilder.addDiscoveredConverters();
         configBuilder.withSources(new FilterConfigSource(filterConfig));
-        return configBuilder.build();
+        Config config =  configBuilder.build();
+        resolver.registerConfig(config, classLoader);
+
+        return config;
     }
 
     private CacheManager buildCacheManager(Config config, ClassLoader classLoader) {

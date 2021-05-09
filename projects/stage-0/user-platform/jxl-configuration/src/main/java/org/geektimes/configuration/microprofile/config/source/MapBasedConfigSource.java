@@ -13,7 +13,7 @@ import java.util.Set;
  **/
 public abstract class MapBasedConfigSource implements ConfigSource {
 
-    private Map<String, String> map;
+    private Map<String, String> configData;
 
     /**
      * 数据源名称
@@ -29,29 +29,41 @@ public abstract class MapBasedConfigSource implements ConfigSource {
     public MapBasedConfigSource(String name, int ordinal) {
         this.ordinal = ordinal;
         this.name = name;
-        map = getProperties();
+        configData = Maps.newHashMap();
     }
 
-    public Map<String, String> getProperties() {
-        Map<String, String> properties = Maps.newHashMap();
-        try {
-            prepareConfigData(properties);
-        } catch (Throwable e) {
-            throw new IllegalStateException("加载配置数据异常", e);
-        }
-        return Collections.unmodifiableMap(properties);
+
+    /**
+     * 获取配置数据 Map
+     *
+     * @return 不可变 Map 类型的配置数据
+     */
+    public final Map<String, String> getProperties() {
+        return Collections.unmodifiableMap(getConfigData());
     }
+
+    protected Map<String, String> getConfigData() {
+        try {
+            if (configData.isEmpty()) {
+                prepareConfigData(configData);
+            }
+        } catch (Throwable cause) {
+            throw new IllegalStateException("准备配置数据发生错误", cause);
+        }
+        return configData;
+    }
+
 
     protected abstract void prepareConfigData(Map properties) throws Throwable;
 
     @Override
     public Set<String> getPropertyNames() {
-        return map.keySet();
+        return configData.keySet();
     }
 
     @Override
     public String getValue(String propertyName) {
-        return map.get(propertyName);
+        return configData.get(propertyName);
     }
 
     @Override

@@ -31,7 +31,7 @@ public class TestingComponent {
     @PostConstruct
     public void sendMessage() throws Throwable {
 
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 1; i++) {
             try {
                 TimeUnit.SECONDS.sleep(1);
                 long time = System.currentTimeMillis();

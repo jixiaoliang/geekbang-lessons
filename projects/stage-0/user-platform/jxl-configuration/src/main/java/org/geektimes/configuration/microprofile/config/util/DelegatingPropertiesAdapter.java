@@ -17,6 +17,7 @@
 package org.geektimes.configuration.microprofile.config.util;
 
 import org.eclipse.microprofile.config.Config;
+import org.eclipse.microprofile.config.spi.ConfigSource;
 
 import java.io.*;
 import java.util.*;
@@ -41,9 +42,13 @@ public class DelegatingPropertiesAdapter extends Properties {
 
     private Properties buildDelegate(Config config) {
         Properties properties = new Properties();
-        for (String propertyName : config.getPropertyNames()) {
-            properties.put(propertyName, config.getValue(propertyName, Object.class));
+
+        for (ConfigSource configSource:config.getConfigSources()) {
+            for (String propertyName : configSource.getPropertyNames()) {
+                properties.put(propertyName, configSource.getValue(propertyName));
+            }
         }
+
         return properties;
     }
 

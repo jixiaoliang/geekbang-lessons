@@ -13,33 +13,23 @@ import java.util.logging.Logger;
  * @since 2021/03/21
  **/
 public class ServletContextConfigSource extends MapBasedConfigSource {
-    Logger logger = Logger.getLogger(ServletContextConfigSource.class.getName());
 
-    private  static ServletContext servletContext;
-
-    private Map<String, String> properties;
+    private  final ServletContext servletContext;
 
     public ServletContextConfigSource(ServletContext servletContext){
         super("ServletContextConfigSource", 300);
         this.servletContext = servletContext;
-        initConfig();
     }
 
-    private void initConfig(){
-        logger.info("初始化 ServletContextConfigSource 开始");
-        Enumeration<String> enumeration= servletContext.getInitParameterNames();
-        while (enumeration.hasMoreElements()){
-            String key = enumeration.nextElement();
-            String value = servletContext.getInitParameter(key);
-            properties.put(key, value);
-            logger.info("初始化 ServletContextConfigSource " + key + "=" + value);
-        }
-    }
+
 
     @Override
-    protected void prepareConfigData(Map properties) throws Throwable {
-        this.properties =properties;
+    protected void prepareConfigData(Map configData) throws Throwable {
+        Enumeration<String> parameterNames = servletContext.getInitParameterNames();
+        while (parameterNames.hasMoreElements()) {
+            String parameterName = parameterNames.nextElement();
+            configData.put(parameterName, servletContext.getInitParameter(parameterName));
+        }
     }
-
 
 }

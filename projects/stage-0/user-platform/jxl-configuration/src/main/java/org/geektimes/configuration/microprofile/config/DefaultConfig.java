@@ -73,6 +73,8 @@ public class DefaultConfig implements Config {
 
     @Override
     public Iterable<String> getPropertyNames() {
+        //触发初始化
+        configSources.forEach(ConfigSource::getProperties);
         return StreamSupport.stream(configSources.spliterator(),false)
                 .map(ConfigSource::getPropertyNames)
                 .flatMap(Collection::stream)
