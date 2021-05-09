@@ -151,6 +151,12 @@
                 <version>${revision}</version>
             </dependency>
 
+            <dependency>
+                <groupId>org.geekbang.projects</groupId>
+                <artifactId>jxl-session</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
             <!-- Servlet 3.1 API -->
             <dependency>
                 <groupId>javax.servlet</groupId>
