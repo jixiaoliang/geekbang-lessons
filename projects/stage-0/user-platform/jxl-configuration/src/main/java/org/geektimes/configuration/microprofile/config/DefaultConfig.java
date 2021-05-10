@@ -10,6 +10,7 @@ import org.geektimes.configuration.microprofile.config.converter.Converters;
 import org.geektimes.configuration.microprofile.config.source.ConfigSources;
 
 import java.util.*;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
@@ -19,6 +20,7 @@ import java.util.stream.StreamSupport;
  * @since 2021/03/15
  **/
 public class DefaultConfig implements Config {
+    private Logger logger = Logger.getLogger("DefaultConfig");
 
     private final ConfigSources configSources;
 
@@ -76,7 +78,10 @@ public class DefaultConfig implements Config {
         //触发初始化
         configSources.forEach(ConfigSource::getProperties);
         return StreamSupport.stream(configSources.spliterator(),false)
-                .map(ConfigSource::getPropertyNames)
+                .map(x->{
+                    logger.info(x.getName()+"==>"+x.getPropertyNames());
+                    return x.getPropertyNames();
+                })
                 .flatMap(Collection::stream)
                 .collect(Collectors.toSet());
     }
