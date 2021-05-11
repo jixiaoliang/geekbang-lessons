@@ -44,7 +44,7 @@ public class Converters implements Iterable<Converter> {
     }
 
     public void addConverter(Converter converter, int priority) {
-        Class<?> convertedType = resolveConverterType(converter);
+        Class<?> convertedType = resolveConvertedType(converter);
         addConverter(converter, priority, convertedType);
     }
 
@@ -57,7 +57,7 @@ public class Converters implements Iterable<Converter> {
         this.classLoader = classLoader;
     }
 
-    /*protected Class<?> resolveConvertedType(Converter<?> converter) {
+    protected Class<?> resolveConvertedType(Converter<?> converter) {
         assertConverter(converter);
         Class<?> convertedType = null;
         Class<?> converterClass = converter.getClass();
@@ -81,9 +81,9 @@ public class Converters implements Iterable<Converter> {
         }
 
         return convertedType;
-    }*/
+    }
 
-    /*private void assertConverter(Converter<?> converter) {
+    private void assertConverter(Converter<?> converter) {
         Class<?> converterClass = converter.getClass();
         if (converterClass.isInterface()) {
             throw new IllegalArgumentException("The implementation class of Converter must not be an interface!");
@@ -91,45 +91,10 @@ public class Converters implements Iterable<Converter> {
         if (Modifier.isAbstract(converterClass.getModifiers())) {
             throw new IllegalArgumentException("The implementation class of Converter must not be abstract!");
         }
-    }*/
-
-     protected Class<?> resolveConverterType(Converter<?> converter) {
-        checkConverter(converter);
-         Class<?> targetClass = null;
-         Class<?> converterClass = converter.getClass();
-         while (converterClass != null) {
-             targetClass =resolverConverterType(converterClass);
-
-             if(targetClass !=null){
-                 break;
-             }
-             Type superclass= converterClass.getGenericSuperclass();
-
-             if(superclass instanceof ParameterizedType) {
-                 targetClass = resolverConverterType(converterClass.getGenericSuperclass());
-                 if (targetClass != null) {
-                     break;
-                 }
-             }
-
-             converterClass = converterClass.getSuperclass();
-         }
-         return targetClass;
-     }
-
-    private void checkConverter(Converter<?> converter){
-        Class<?> clazz = converter.getClass();
-        if(clazz.isInterface()){
-            throw  new IllegalArgumentException("the implements of Converter must not be a interface");
-        }
-
-        if(Modifier.isAbstract(clazz.getModifiers())){
-            throw  new IllegalArgumentException("the implements of Converter must not be a abstract class");
-        }
     }
 
 
-    /*private Class<?> resolveConvertedType(Class<?> converterClass) {
+    private Class<?> resolveConvertedType(Class<?> converterClass) {
         Class<?> convertedType = null;
 
         for (Type superInterface : converterClass.getGenericInterfaces()) {
@@ -140,44 +105,9 @@ public class Converters implements Iterable<Converter> {
         }
 
         return convertedType;
-    }*/
-
-    private Class<?> resolverConverterType(Class<?> converterClass){
-        Class<?> converterType = null;
-       for (Type type : converterClass.getGenericInterfaces()) {
-            converterType = resolverConverterType(type);
-            if(Objects.nonNull(converterType)){
-                break;
-            }
-        }
-
-        return converterType;
     }
 
-    private Class<?> resolverConverterType(Type type){
-        Class<?> converterType = null;
-        if (type instanceof ParameterizedType) {
-
-            ParameterizedType parameterizedType = (ParameterizedType) type;
-            Type rawType = parameterizedType.getRawType();
-
-            if (rawType instanceof Class) {
-
-                Class<?> rawClass = (Class<?>) rawType;
-                if (rawClass.isAssignableFrom(Converter.class)) {
-
-                    Type[] arguments = parameterizedType.getActualTypeArguments();
-                    if (arguments.length == 1 && arguments[0] instanceof Class) {
-                        converterType = (Class<?>) arguments[0];
-                    }
-                }
-            }
-        }
-
-        return converterType;
-    }
-
-    /*private Class<?> resolveConvertedType(Type type) {
+    private Class<?> resolveConvertedType(Type type) {
         Class<?> convertedType = null;
         if (type instanceof ParameterizedType) {
             ParameterizedType pType = (ParameterizedType) type;
@@ -192,7 +122,7 @@ public class Converters implements Iterable<Converter> {
             }
         }
         return convertedType;
-    }*/
+    }
 
     public void addConverters(Converter... converters) {
         addConverters(Arrays.asList(converters));

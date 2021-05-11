@@ -72,7 +72,9 @@ public class UserController implements PageController {
         if(StringUtils.isNotEmpty(userName)){
             user.setName(userName);
         }
-        request.getSession().setAttribute("name", user.getName());
+        if(StringUtils.isNotEmpty(user.getName())){
+            request.getSession().setAttribute("name", user.getName());
+        }
         Config config = (Config) request.getServletContext().getAttribute(Constants.GLOBAL_CONFIG);
         request.getSession().setAttribute("applicationName", config.getValue(Constants.APPLICATION_NAME, String.class));
 

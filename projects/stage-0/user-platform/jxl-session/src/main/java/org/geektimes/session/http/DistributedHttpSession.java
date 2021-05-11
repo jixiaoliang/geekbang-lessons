@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.geektimes.session.servlet.http;
+package org.geektimes.session.http;
 
 import org.geektimes.session.SessionInfo;
 import org.geektimes.session.SessionRepository;

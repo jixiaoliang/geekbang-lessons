@@ -34,9 +34,12 @@ public class UserServiceImpl implements UserService {
         violations.forEach(rst->{
             throw new RuntimeException(String.format("%s:%s", rst.getPropertyPath(), rst.getMessage()));
         });
+
+        entityManager.persist(user);
+/*
         entityManager.getTransaction().begin();
         entityManager.persist(user);
-        entityManager.getTransaction().commit();
+        entityManager.getTransaction().commit();*/
         //return userRepository.save(user);
         return true;
     }

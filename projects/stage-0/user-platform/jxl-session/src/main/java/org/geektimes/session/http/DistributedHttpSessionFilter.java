@@ -14,26 +14,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.geektimes.session.servlet.http;
+package org.geektimes.session.http;
 
 import org.eclipse.microprofile.config.Config;
 import org.eclipse.microprofile.config.spi.ConfigBuilder;
 import org.eclipse.microprofile.config.spi.ConfigProviderResolver;
 import org.geektimes.configuration.microprofile.config.source.servlet.FilterConfigSource;
-import org.geektimes.configuration.microprofile.config.util.DelegatingPropertiesAdapter;
 import org.geektimes.session.SessionRepository;
 import org.geektimes.session.config.DefaultSessionConfigSource;
 import org.geektimes.session.config.converter.SessionRepositoryConverter;
+import org.geektimes.session.servlet.http.DistributedHttpSession;
+import org.geektimes.session.servlet.http.DistributedServletRequestWrapper;
+import org.geektimes.session.servlet.http.DistributedServletResponseWrapper;
 
-import javax.cache.CacheManager;
-import javax.cache.Caching;
-import javax.cache.spi.CachingProvider;
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.net.URI;
 
 import static org.eclipse.microprofile.config.spi.ConfigProviderResolver.instance;
 
@@ -110,13 +108,13 @@ public class DistributedHttpSessionFilter implements Filter {
 
     protected void filter(HttpServletRequest request, HttpServletResponse response,
                           FilterChain chain) throws IOException, ServletException {
-        DistributedServletRequestWrapper requestWrapper = new DistributedServletRequestWrapper(request, sessionRepository);
-        DistributedServletResponseWrapper responseWrapper = new DistributedServletResponseWrapper(response);
+        org.geektimes.session.servlet.http.DistributedServletRequestWrapper requestWrapper = new DistributedServletRequestWrapper(request, sessionRepository);
+        org.geektimes.session.servlet.http.DistributedServletResponseWrapper responseWrapper = new DistributedServletResponseWrapper(response);
         chain.doFilter(requestWrapper, responseWrapper);
     }
 
     protected void afterFilter(HttpServletRequest request, HttpServletResponse response, Throwable error) {
-        DistributedHttpSession session = DistributedHttpSession.get(request);
+        org.geektimes.session.servlet.http.DistributedHttpSession session = DistributedHttpSession.get(request);
         if (session != null) {
             session.commitSessionInfo();
         }

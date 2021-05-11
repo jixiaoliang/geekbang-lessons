@@ -14,45 +14,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.geektimes.session;
+package org.geektimes.session.http;
 
-import java.util.Set;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpServletResponseWrapper;
 
 /**
- * Session Repository
+ * The distributed {@link HttpServletResponse} implementation based on {@link HttpServletResponseWrapper}
  *
  * @author <a href="mailto:mercyblitz@gmail.com">Mercy</a>
  * @since 1.0.0
+ * Date : 2021-04-28
  */
-public interface SessionRepository {
-
-    // SessionInfo manipulation methods
-
-    SessionRepository saveSessionInfo(SessionInfo sessionInfo);
-
-    SessionInfo getSessionInfo(String sessionId);
-
-    SessionRepository removeSessionInfo(String sessionId);
-
-    // Attribute manipulation methods
-
-    SessionRepository setAttribute(String sessionId, String name, Object value);
-
-    SessionRepository removeAttribute(String sessionId, String name);
-
-    Object getAttribute(String sessionId, String name);
-
-    Set<String> getAttributeNames(String sessionId);
-
-    // Lifecycle methods
+public class DistributedServletResponseWrapper extends HttpServletResponseWrapper {
 
     /**
-     * Initialize
+     * Constructs a response object wrapping the given response.
+     *
+     * @param response HttpServletResponse
+     * @throws IllegalArgumentException if the response is null
      */
-    void initialize();
-
-    /**
-     * Destroy
-     */
-    void destroy();
+    public DistributedServletResponseWrapper(HttpServletResponse response) {
+        super(response);
+    }
 }

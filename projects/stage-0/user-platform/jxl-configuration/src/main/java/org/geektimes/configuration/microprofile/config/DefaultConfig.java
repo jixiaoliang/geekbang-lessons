@@ -1,7 +1,6 @@
 package org.geektimes.configuration.microprofile.config;
 
 import com.google.common.collect.Lists;
-import org.apache.commons.lang.StringUtils;
 import org.eclipse.microprofile.config.Config;
 import org.eclipse.microprofile.config.ConfigValue;
 import org.eclipse.microprofile.config.spi.ConfigSource;
@@ -9,10 +8,12 @@ import org.eclipse.microprofile.config.spi.Converter;
 import org.geektimes.configuration.microprofile.config.converter.Converters;
 import org.geektimes.configuration.microprofile.config.source.ConfigSources;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
 /**
@@ -29,6 +30,7 @@ public class DefaultConfig implements Config {
     public DefaultConfig(ConfigSources configSources, Converters converters) {
         this.configSources = configSources;
         this.converters = converters;
+        configSources.forEach(ConfigSource::getProperties);
     }
 
     /*public DefaultConfig(){
@@ -57,7 +59,7 @@ public class DefaultConfig implements Config {
     private String getPropertiesValue(String propertyName){
         for (ConfigSource configSource : configSources) {
             String value = configSource.getValue(propertyName);
-            if(StringUtils.isNotEmpty(value)){
+            if (value != null) {
                 return value;
             }
         }
@@ -76,10 +78,9 @@ public class DefaultConfig implements Config {
     @Override
     public Iterable<String> getPropertyNames() {
         //触发初始化
-        configSources.forEach(ConfigSource::getProperties);
         return StreamSupport.stream(configSources.spliterator(),false)
                 .map(x->{
-                    logger.info(x.getName()+"==>"+x.getPropertyNames());
+                    //logger.info(x.getName()+"==>"+x.getPropertyNames());
                     return x.getPropertyNames();
                 })
                 .flatMap(Collection::stream)
@@ -99,5 +100,13 @@ public class DefaultConfig implements Config {
     @Override
     public <T> T unwrap(Class<T> type) {
         return null;
+    }
+
+    public static void main(String[] args) {
+        try {
+            int i =3/0;
+        } finally {
+            System.out.println("ok");
+        }
     }
 }

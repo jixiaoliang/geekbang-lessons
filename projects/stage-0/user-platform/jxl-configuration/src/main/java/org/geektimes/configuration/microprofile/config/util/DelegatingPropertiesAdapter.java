@@ -44,8 +44,9 @@ public class DelegatingPropertiesAdapter extends Properties {
         Properties properties = new Properties();
 
         for (String propertyName : config.getPropertyNames()) {
-            properties.put(propertyName, config.getValue(propertyName, Object.class));
+            properties.put(propertyName, config.getValue(propertyName, String.class));
         }
+
         return properties;
     }
 
