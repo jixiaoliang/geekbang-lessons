@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.geektimes.projects.user.service.dao.WacWaveReportDao" >
+  <resultMap id="BaseResultMap" type="org.geektimes.projects.user.service.dao.bean.WacWaveReport" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="record_date" property="recordDate" jdbcType="DATE" />
+    <result column="owner_id" property="ownerId" jdbcType="VARCHAR" />
+    <result column="syscode" property="syscode" jdbcType="TINYINT" />
+    <result column="cost_price_total" property="costPriceTotal" jdbcType="DECIMAL" />
+    <result column="qty_total" property="qtyTotal" jdbcType="DECIMAL" />
+    <result column="unit_cost_total" property="unitCostTotal" jdbcType="DECIMAL" />
+    <result column="created_time" property="createdTime" jdbcType="TIMESTAMP" />
+    <result column="updated_time" property="updatedTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, record_date, owner_id, syscode, cost_price_total,qty_total, unit_cost_total, created_time,
+    updated_time
+  </sql>
+
+  <select id="queryList" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from wac_wave_report
+    where record_date = #{date,jdbcType=DATE}
+  </select>
+
+</mapper>

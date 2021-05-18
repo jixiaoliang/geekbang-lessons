@@ -28,9 +28,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
  * @author <a href="mailto:mercyblitz@gmail.com">Mercy</a>
  * @since TODO
  * Date : 2021-04-24
- */
+ *//*
 @Configuration
-@Order(10000)
+@Order(10000)*/
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     protected void configure(HttpSecurity httpSecurity) throws Exception {

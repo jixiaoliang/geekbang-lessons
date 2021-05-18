@@ -14,31 +14,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.geektimes.projects.user.web.security;
+package org.geektimes.projects.user.mybatis.annotation;
 
-import org.springframework.context.annotation.Configuration;
-import org.springframework.core.annotation.Order;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.context.annotation.ImportResource;
 
 /**
- * Spring Security 配置类
+ * TODO Comment
  *
  * @author <a href="mailto:mercyblitz@gmail.com">Mercy</a>
  * @since TODO
- * Date : 2021-04-24
- *//*
-@Configuration
-@Order(9999)*/
-public class SecurityConfig2 extends WebSecurityConfigurerAdapter {
+ * Date : 2021-05-06
+ */
+//@EnableMyBatis(dataSource = "dataSource",
+//        configLocation = "classpath*:META-INF/mybatis/mybatis-config.xml",
+//        mapperLocations = {"classpath*:sample/config/mappers/**/*.xml"},
+//        environment = "development")
+//@ImportResource(locations = "classpath*:sample/spring-context.xml") // SqlSessionFactoryBean
 
-    protected void configure(HttpSecurity httpSecurity) throws Exception {
-        // 关闭
-        httpSecurity.csrf().disable().formLogin();
-    }
-
-    public void configure(WebSecurity webSecurity) throws Exception {
-//        webSecurity.securityInterceptor()
-    }
+public class EnableMyBatisExample {
 }
