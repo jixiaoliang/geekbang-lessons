@@ -1,3 +1,6 @@
+#db 初始化脚本
+### geek/geekbang-lessons/projects/stage-0/user-platform/doc/sql/mybatis.sql
+
 #mybatis 属性扩展
 ### org.geektimes.projects.user.mybatis.annotation.MyBatisBeanDefinitionRegistrar
 
